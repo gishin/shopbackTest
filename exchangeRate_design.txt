@@ -1,0 +1,40 @@
+[Problem 1] 
+Assumption:
+1. There is an (extenal) API for the latest exchange rate for any combination of two currencies.
+2. There are 20 kinds of currency we need to deal with.
+3. We can set up a MySQL server.
+
+Solution:
+1. keep an exchangeRate table in DB , with the following fields 
+   --id: int
+   --base currency: String 
+   --target currency: String
+   --updatedDate: Date
+   --exchange rate for target/base: double   
+   
+   And set unique index for the following fields order : (base_currency, target_currency, updatedDate)
+   
+2. Set up a cron job to run once everyday, and insert the exchagne record into the table above for
+   each combination of currency exchange. So for each day, there should be 20x19=380 records been 
+   inserted.
+   
+3. Create an API "/exchangeRate" with the params like "?baseCurrency=X&targetCurrency=Y&date=20180115".
+   And return the rate as response.
+   
+   Under the hood, we lookup the DB using something like 
+   SQL> select exchange_rate from exchangeRateTbl where (currencyA=X) and (currencyB=Y) and 
+             (updatedDate=<transaction date>)   
+   Since the fields have been uniquely indexed, the look-up time should be minimal (O(log N))
+   
+4. As a further improvement, we can remove the records whose "updatedDate" is older than certain time 
+   (e.g. 6 years), which means that we only keep the latest 6 years of exchange rate historial records
+   (the total # of records will be 6 X 365 x 380 = 832,200)
+  
+5. If we really want to speed up the API response, we can cache all the records for the past 6 months.
+   Either use another cache server like Redis / Memcache, just create a hash-map in class(static) level in 
+   Java program.
+   
+6. For fault tolerant, we can set up another read-only MySQL server by auto-replicated the primary server.
+   In case of any incident in the primary server, the stand-by readonly instance can be switched as primary.
+   Or, if the cache solutions are used, we can have Redis-cluster to prevent the single point of failure.
+       
