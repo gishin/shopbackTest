@@ -1,4 +1,5 @@
 var Money = require('../Money.js');
+var printf = require('printf');
 const signupBonus = {};
 
 signupBonus['www.shopback.sg'] = new Money({currency : 'SGD', amount: 5});
@@ -10,14 +11,17 @@ signupBonus['www.myshopback.com'] = new Money({currency : 'USD', amount: 5});
 
 
 module.exports= function(argv){
-   var domain = argv[3];
+   var domain = argv[0];
+   var result;
    if (!domain){
-      console.log("error! incorrect argument length");
-      return ;
+      result="error! incorrect argument length";
+      return;
    } else if (!signupBonus[domain]){
-      console.log("no such domain: %s", domain);
+      result=printf('no such domain: %s', domain);
    } else {
-       console.log('Award bonus: %s', signupBonus[domain].toString());
+      result=printf('Award bonus: %s', signupBonus[domain].toString());
    }
+   console.log(result);
+   return result;
 }
 

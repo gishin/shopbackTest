@@ -9,7 +9,7 @@ prog
   .arguments('<myaction>')
   .action((myaction) => {
      var subAction =  require('./action/'+myaction+'.js');
-     subAction(process.argv);
+     subAction(process.argv.slice(3));
    })
   .parse(process.argv);
 

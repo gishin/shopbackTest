@@ -2,13 +2,13 @@ var printf = require('printf');
 module.exports = function(argv){
    var amountList = [];
    var amount;
-   // check if length of argv >=3
-   if (argv.length < 3){ 
+   // check if length of argv >= 1
+   if (argv.length < 1){ 
       console.log("error ! incorrect number of arguments");
       return ;
    } else {
      // remove all non-number and minus-amount items
-      for (var i = 3; i <= argv.length; i++){
+      for (var i = 0; i < argv.length; i++){
          amount = parseFloat(argv[i]);
          if ((typeof amount === "number") && (amount >= 0)){
             amountList.push(amount);
@@ -17,13 +17,16 @@ module.exports = function(argv){
    }
    var rate = findCashbackRate(amountList);
    var highest = Math.max(...amountList);
-  // console.log(printf('rate is %.2f , highest amount is %d',rate, highest));
+//   console.log(printf('rate is %.2f , highest amount is %d',rate, highest));
+   var result;
    if (highest <= 0){
-      console.log('No cashback');
+      result='No cashback';
    } else { 
       var cashback = Math.round(highest*rate*100)/100;
-      console.log('Award cashback: %s', printf('%.2f', cashback));
+      result=printf('Award cashback: %.2f', cashback);
    }
+   console.log(result);
+   return result;
 }
 
 

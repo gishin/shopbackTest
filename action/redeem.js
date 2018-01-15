@@ -1,3 +1,4 @@
+var printf = require('printf');
 const site = {
    'www.shopback.sg' : 'https://www.shopback.sg',
    'www.shopback.my' : 'https://www.shopback.my',
@@ -7,13 +8,15 @@ const site = {
    'www.shopback.com' :  'https://www.shopback.com'
 }
 module.exports = function(argv){
-   var domain = argv[3];
+   var domain = argv[0];
+   var result;
    if (!domain){
-      console.log("error! incorrect argument length");
-      return ;
+      result="error! incorrect argument length";
    } else if (!site[domain]){
-      console.log("no such domain: %s", domain);
+      result=printf('no such domain: %s', domain);
    } else {
-      console.log("Visit %s to start earning cashback!", site[domain]);
+      result=printf('Visit %s to start earning cashback!', site[domain]);
    }
+   console.log(result);
+   return result;
 }
