@@ -1,0 +1,12 @@
+{
+  "name": "ShopBack",
+  "version": "1.0.0",
+  "description": "Assignment for ShopBack",
+  "main": "shopback-calculator.js",
+  "author": "Kenny Lin",
+  "license": "MIT",
+  "dependencies": {
+    "commander": "^2.13.0",
+    "printf": "^0.2.5"
+  }
+}
