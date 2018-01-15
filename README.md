@@ -2,7 +2,7 @@
 Programming assignment from Shopback.com  
 
 To run the program, follow the steps below  
-$ git clone <URL>   
+$ git clone https://github.com/gishin/shopbackTest.git  
 $ cd shopbackTest  
 $ npm install  
 $ node shopback-calculator.js signup www.shopback.sg  
