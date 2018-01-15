@@ -1,4 +1,10 @@
 # shopbackTest
+[Problem 1 Forex]  
+exchangeRate/exchangeRate_design.txt: description of design proposl  
+exchangeRate/diagram.png: system diagram  
+
+[Problem 2 Programming excercise]  
+
 Programming assignment from Shopback.com  
 
 To run the program, follow the steps below  
